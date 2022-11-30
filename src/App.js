@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import MainScreen from "./components/MainScreen/MainScreen";
+import useGetUsers from "./hooks/useGetUsers";
+import UserFullCard from "./components/UserCard/UserCard/UserdFullCard/UserFullCard";
+import { useState } from "react";
 
 function App() {
+  const { users } = useGetUsers();
+  const [newUsers, setNewUsers] = useState(users)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={<MainScreen users={users} newUsers ={newUsers} setNewUsers={setNewUsers} />}
+      />
+      <Route path="/usuario/:usuarioId" element={<UserFullCard users={users} />} />
+    </Routes>
   );
 }
 
